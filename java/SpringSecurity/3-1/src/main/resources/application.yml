@@ -1,0 +1,75 @@
+# 配置数据库连接
+spring:
+  datasource: # 数据源配置
+    driver-class-name: com.mysql.cj.jdbc.Driver # 驱动类名
+    username: root # 数据库用户名
+    password: dydy521521 # 数据库密码
+    url: jdbc:mysql://localhost:3306/mytest1?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8 # 数据库连接URL
+    type: com.alibaba.druid.pool.DruidDataSource # 连接池类型
+    initial-size: 5 # 初始连接数
+    min-idle: 5 # 最小空闲连接数
+    max-active: 20 # 最大活动连接数
+    max-wait: 60000 # 获取连接最大等待时间
+    time-between-eviction-runs-millis: 60000 # 两次检测连接有效性的时间间隔
+    min-evictable-idle-time-millis: 300000 # 最小空闲时间
+    validation-query: SELECT 1 FROM DUAL # 验证连接是否有效的SQL查询语句
+    test-while-idle: 'true' # 空闲时是否进行连接的检测
+    test-on-borrow: 'false' # 取得连接时是否进行检测
+    test-on-return: 'false' # 归还连接时是否进行检测
+    filters: stat,wall,log4j # 配置过滤器
+    connection-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=5000 # 连接属性
+
+  # 配置JPA
+  jpa: # JPA配置
+    hibernate: # Hibernate配置
+      ddl-auto: update # 自动更新表结构
+    database: mysql # 数据库类型
+    show-sql: 'true' # 显示SQL语句
+
+  # 主要配置
+  main: # 主要配置
+    allow-bean-definition-overriding: 'true' # 允许Bean定义覆盖
+
+  # MVC配置
+  mvc: # MVC配置
+    pathmatch: # 路径匹配配置
+      matching-strategy: ant_path_matcher # 匹配策略
+
+  # Servlet配置
+  servlet: # Servlet配置
+    multipart: # 文件上传配置
+      enabled: 'true' # 是否启用文件上传
+      file-size-threshold: 2KB # 文件大小阈值
+      max-file-size: 200MB # 最大文件大小
+      max-request-size: 215MB # 最大请求大小
+
+  # Redis配置
+  redis: # Redis配置
+    host: localhost # 主机地址
+    port: 6379 # 端口号
+    timeout: 5000ms # 超时时间
+    lettuce: # Lettuce配置
+      pool: # 连接池配置
+        max-active: 20 # 最大活动连接数
+        max-idle: 10 # 最大空闲连接数
+        min-idle: 5 # 最小空闲连接数
+        max-wait: 5000ms # 获取连接最大等待时间
+
+# 服务器端口配置
+server: # 服务器配置
+  port: 9090 # 服务器端口
+
+# MyBatis配置
+mybatis: # MyBatis配置
+  configuration: # MyBatis配置
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 日志实现类
+
+# MyBatis Plus配置
+mybatis-plus: # MyBatis Plus配置
+  configuration: # MyBatis Plus配置
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl # 日志实现类
+
+# 文件上传配置
+files: # 文件配置
+  upload: # 上传配置
+    path: D:/java files/8/files # 文件上传路径
