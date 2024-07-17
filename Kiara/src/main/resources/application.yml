@@ -1,0 +1,39 @@
+spring:
+  datasource:
+    # 数据源配置
+    driver-class-name: com.mysql.cj.jdbc.Driver # 数据库驱动类名
+    username: root # 数据库用户名
+    password: dydy521521 # 数据库密码
+    url: jdbc:mysql://localhost:3306/demo?useUnicode=true&characterEncoding=utf-8&allowMultiQueries=true&useSSL=false&serverTimezone=GMT%2b8 # 数据库连接URL
+
+  thymeleaf:
+    # Thymeleaf模板引擎配置
+    cache: true # 开启模板缓存（默认值为true）
+    check-template: true # 检查模板是否存在，然后再呈现（默认值为true）
+    check-template-location: true # 检查模板位置是否正确（默认值为true）
+    content-type: text/html # Content-Type的值（默认值为text/html）
+    enabled: true # 开启MVC Thymeleaf视图解析（默认值为true）
+    encoding: UTF-8 # 模板编码（默认值为UTF-8）
+    excluded-view-names: # 要排除在解析之外的观点名称列表，用逗号分隔
+    mode: HTML5 # 应用于模板的模式（默认值为HTML5）
+    prefix: classpath:/templates/ # 在构建URL时添加到视图名称前的前缀（默认值为classpath:/templates/）
+    suffix: .html # 在构建URL时添加到视图名称后的后缀（默认值为.html）
+
+server:
+  # 服务器配置
+  port: 8080 # 应用服务WEB访问端口
+  #文件配置
+  multipart:
+    # 启用
+    enabled: true
+    # 上传文件单个限制
+    max-file-size: 500MB
+    # 总限制
+    max-request-size: 1000MB
+file:
+  upload-dir: D://java files//c//Kiara//src//main//resources//upload// # 替换为你实际的文件上传目录
+
+mybatis:
+  # Mybatis配置
+  mapper-locations: classpath:mappers/*xml # 指定Mybatis的Mapper文件路径
+  type-aliases-package: com.example.norma.springboot.mybatis.entity # 指定Mybatis的实体类目录
