@@ -1,0 +1,90 @@
+package ${package.Controller};
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import ${package}.Mapper.${table.mapper};
+import ${package}.Service.${table.service};
+import ${package}.entity.${entity};
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+#if(${restControllerStyle})
+import org.springframework.web.bind.annotation.RestController;
+#else
+import org.springframework.stereotype.Controller;
+#end
+
+#if(${superControllerClassPackage})
+import ${superControllerClassPackage};
+#end
+
+/**
+ * <p>
+ * $!{table.comment} 前端控制器
+ * </p>
+ *
+ * @Author ${author}
+ * @Date ${date}
+ */
+#if(${restControllerStyle})
+@RestController
+#else
+@Controller
+#end
+@RequestMapping("#if(${package.ModuleName})/${package.ModuleName}#end/#if(${controllerMappingHyphenStyle})${controllerMappingHyphen}#else${table.entityPath}#end")
+#if(${kotlin})
+class ${table.controllerName}#if(${superControllerClass}) : ${superControllerClass}()#end {
+
+#else
+    #if(${superControllerClass})
+    public class ${table.controllerName} extends ${superControllerClass} {
+    #else
+    public class ${table.controllerName} {
+    #end
+
+@Autowired
+private ${table.serviceName} ${table.entityPath}Service;
+
+// 新增或者更新接口
+@PostMapping
+public boolean saveOrUpdate(@RequestBody ${entity} ${table.entityPath}) {
+        return ${table.entityPath}Service.saveOrUpdate(${table.entityPath});
+        }
+
+// 根据id删除接口
+@DeleteMapping("/{id}")
+public boolean deleteById(@PathVariable Integer id) {
+        return ${table.entityPath}Service.removeById(id);
+        }
+
+// 批量删除接口
+@PostMapping("Delete/Deletebatch/{id}")
+public boolean deleteBatch(@RequestBody List<Integer> ids) {
+        return ${table.entityPath}Service.removeByIds(ids);
+        }
+
+// 查询所有数据接口
+@GetMapping
+public List<${entity}> findAll() {
+        return ${table.entityPath}Service.list();
+        }
+
+// 根据id查询数据接口
+@GetMapping("/index/{id}")
+public ${entity} findById(@PathVariable Integer id) {
+        return ${table.entityPath}Service.getById(id);
+        }
+
+// 分页查询数据接口
+    @GetMapping("/page")
+public IPage<${entity}> findPage(@RequestParam Integer pageNum,
+@RequestParam Integer pageSize) {
+        QueryWrapper<${entity}> queryWrapper = new QueryWrapper<>();
+        queryWrapper.orderByDesc("id");
+        return ${table.entityPath}Service.page(new Page<>(pageNum, pageSize), queryWrapper);
+        }
+        }
+#end
